@@ -1,0 +1,227 @@
+_id: spc_561209a68cda45f08583112f041b3f2f
+type: ApiSpec
+parentId: wrk_9f0d217b1c804371ba1c717becc6393d
+modified: 1668738433419
+created: 1668659379333
+fileName: my-spec.yaml
+contents: >-
+  openapi: 3.0.0
+
+
+  info:
+    description: "Karyakarsa Tech Test Assessment - SMKN 1 Wakanda API Specification"
+    version: 1.0.0
+    title: SMKN 1 Wakanda API Specification
+    contact:
+      email: yusuf@wakanda.sch.id
+
+    
+  servers:
+    - url: https://api.wakanda.sch.id/v1
+      description: Production server
+    - url: https://api-stagging.wakanda.sch.id/v1
+      description: Staging server
+    - url: https://api-dev.wakanda.sch.id/v1
+      description: Development server
+
+      
+  tags:
+    - name: auth
+      description: Everything about auth endpoint
+    - name: schedules
+      description: Everything about schedules endpoint
+
+      
+  paths:
+    /auth/login:
+      post:
+        tags:
+          - auth
+        summary: Auth Login
+        description: ""
+        requestBody:
+          $ref: "#/components/requestBodies/login"
+        responses:
+          "200":
+            description: OK
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties: 
+                    expires_in:
+                      type: integer
+                      example: 1668673803128
+                    access_token: 
+                      type: string
+          default:
+            $ref: "#/components/responses/default"
+    /auth/reset:
+      put:
+        security: 
+          - bearerAuth: []
+        tags:
+          - auth
+        summary: Auth reset password
+        description: ""
+        requestBody:
+          $ref: "#/components/requestBodies/reset"
+        responses:
+          "204":
+            $ref: "#/components/responses/204"
+          default:
+            $ref: "#/components/responses/default"
+    /auth/me:
+      get:
+        security:
+          - bearerAuth: []
+        tags:
+          - auth
+        description: Get currently information of current user logged in 
+        responses:
+          "200":
+            description: Success Response
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/me"
+          default:
+            $ref: "#/components/responses/default"
+    /auth/schedules:
+      get:
+        security:
+          - bearerAuth: []
+        tags:
+          - schedules
+        
+        parameters:
+          - name: q
+            in: query
+            description: Teacher name or subject name
+            schema:
+              type: string
+              example: 'upacara'
+          - name: semester
+            in: query
+            schema:
+              type: integer
+              example: 1
+          - name: year
+            in: query
+            schema:
+              type: integer
+              example: 2020
+        responses:
+          "200":
+            description: Success Response
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/schedules"
+          default:
+            $ref: "#/components/responses/default"
+
+      
+  components:
+    securitySchemes:
+      bearerAuth:
+        type: http
+        scheme: bearer
+        bearerFormat: JWT
+    requestBodies:
+      login:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/login"
+        description: Login request body
+        required: true
+      reset:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                old_password: 
+                  type: string
+                  format: password
+                  example: new secret
+                new_password:
+                  type: string
+                  format: password
+                  example: secret
+                confirm_password:
+                  type: string
+                  format: password
+                  example: secret
+    responses:
+      default:
+        description: Runtime error
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/runtimeError"
+      "204":
+        description: No Content
+    schemas:
+      runtimeError:
+          type: object
+          properties:
+            code:
+              type: integer
+              format: int32
+            type:
+              type: string
+            message:
+              type: string
+      login:
+        type: object
+        required:
+          - nis
+          - password
+        properties:
+          nis:
+            type: integer
+            example: 12345678
+          password:
+            type: string
+            format: password
+            example: secret
+      me:
+        type: object
+        properties:
+          id: 
+            type: integer
+          nis: 
+            type: integer
+            example: 12345678
+          fullname:
+            type: string
+            example: "Purwoto"
+          semester:
+            type: integer
+            example: 1
+          major:
+            type: string
+            example: RPL
+          created_at:
+            type: string
+            format: datetime
+      schedule:
+        type: object
+        properties:
+          datetime: 
+            type: string
+            format: date-time
+          subject:
+            type: string
+            example: "Upacara"
+          teacher:
+            type: string
+            example: "Mangazad"
+          
+      schedules:
+        type: array
+        items: 
+          $ref: "#/components/schemas/schedule"
+contentType: yaml

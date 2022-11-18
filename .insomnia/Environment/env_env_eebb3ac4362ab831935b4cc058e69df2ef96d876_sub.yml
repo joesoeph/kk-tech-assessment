@@ -1,0 +1,15 @@
+_id: env_env_eebb3ac4362ab831935b4cc058e69df2ef96d876_sub
+type: Environment
+parentId: env_eebb3ac4362ab831935b4cc058e69df2ef96d876
+modified: 1668663910542
+created: 1668663910542
+name: OpenAPI env
+data:
+  scheme: https
+  base_path: /v1
+  host: api.wakanda.sch.id
+  bearerToken: bearerToken
+dataPropertyOrder: null
+color: null
+isPrivate: false
+metaSortKey: 1668663910542

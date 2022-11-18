@@ -1,0 +1,24 @@
+_id: req_wrk_9f0d217b1c804371ba1c717becc6393d73187d99
+type: Request
+parentId: fld_wrk_9f0d217b1c804371ba1c717becc6393d66a36e77
+modified: 1668666343369
+created: 1668666343369
+url: "{{ base_url }}/auth/logout"
+name: Auth logout
+description: ""
+method: DELETE
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{bearerToken}}"
+  prefix: ""
+metaSortKey: -1668666343369
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

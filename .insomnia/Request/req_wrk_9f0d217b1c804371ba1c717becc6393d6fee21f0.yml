@@ -1,0 +1,29 @@
+_id: req_wrk_9f0d217b1c804371ba1c717becc6393d6fee21f0
+type: Request
+parentId: fld_wrk_9f0d217b1c804371ba1c717becc6393d66a36e77
+modified: 1668663910538
+created: 1668663910538
+url: "{{ base_url }}/auth/login"
+name: Auth Login
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "nis": 12345678,
+      "password": "secret"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1668663910538
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
